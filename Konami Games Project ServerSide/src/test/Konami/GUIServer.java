@@ -30,7 +30,7 @@ public class GUIServer extends JFrame implements ActionListener {
 	private JTextField 	gridExtra2;
 	private JTextField 	gridExtra3;
 	
-	public SocketLis serverCon = null;
+	public SocketLis serverCon;
 	
 	
 	
@@ -53,10 +53,10 @@ public void go(){
 	//configuring buttons and adding them to JFrame.
 	
 	//north layout
-	startButton 	= new JButton("Start Server");
-	stopButton 		= new JButton("Stop Server");
+	startButton = new JButton("Start Server");
+	stopButton = new JButton("Stop Server");
 	
-	jpNorth 		= new JPanel();
+	jpNorth = new JPanel();
 	jpNorth.setBackground(Color.WHITE);
 	
 	
@@ -67,15 +67,15 @@ public void go(){
 	//center layout , making fields for the grid.
 	
 	
-	gridName 	= new JTextField("Name");  
+	gridName = new JTextField("Name");  
 	gridAddress = new JTextField("Address"); 	
 	gridCommand = new JTextField("Command"); 	
-	gridExtra1	= new JTextField(); 	
-	gridExtra2	= new JTextField(); 	
-	gridExtra3 	= new JTextField();
+	gridExtra1 = new JTextField(); 	
+	gridExtra2 = new JTextField(); 	
+	gridExtra3 = new JTextField();
 	
-	xmlLayout 	= new GridLayout(2, 3);
-	jpCenter 	= new JPanel(xmlLayout);
+	xmlLayout = new GridLayout(2, 3);
+	jpCenter = new JPanel(xmlLayout);
 	
 	gridName.setEditable(false);  
 	gridAddress.setEditable(false);  	
@@ -84,16 +84,12 @@ public void go(){
 	gridExtra2.setEditable(false); 	
 	gridExtra3.setEditable(false);
 	
-	
-	
 	gridName.setBackground(Color.LIGHT_GRAY);
 	gridAddress.setBackground(Color.LIGHT_GRAY); 	
 	gridCommand.setBackground(Color.LIGHT_GRAY);	
 	gridExtra1.setBackground(Color.LIGHT_GRAY);	
 	gridExtra2.setBackground(Color.LIGHT_GRAY);	
 	gridExtra3.setBackground(Color.LIGHT_GRAY);
-	
-	
 	
 	jpCenter.add(gridName);
 	jpCenter.add(gridAddress);
@@ -105,11 +101,11 @@ public void go(){
 	this.add(jpCenter, BorderLayout.CENTER);
 	
 	//south layout
-	ipField 		= new JTextField(20);
-	portField 		= new JTextField(20);
-	ipFieldLabel 	= new JLabel("IP Address: ");		
-	portFieldLabel 	= new JLabel("Port Number: ");		
-	jpSouth 		= new JPanel();
+	ipField = new JTextField(20);
+	portField = new JTextField(20);
+	ipFieldLabel = new JLabel("IP Address: ");		
+	portFieldLabel = new JLabel("Port Number: ");		
+	jpSouth = new JPanel();
 	
 	jpSouth.add(ipFieldLabel, BorderLayout.WEST);
 	jpSouth.add(ipField, BorderLayout.WEST);
@@ -153,7 +149,7 @@ public void getIp(){
 	    // Get IP Address
 	    ipAddr = addr.getAddress(); 
 	} catch (UnknownHostException e) { 
-		e.printStackTrace();
+		System.out.println("Error from getIP()");
 	}
 	ipField.setText(ipAddr[0]+"."+ipAddr[1]+"."+ipAddr[2]+"."+ipAddr[3]);
 }
@@ -169,7 +165,7 @@ public void allAction(){
 			try	{
 				serverPortNumber = Integer.parseInt(portField.getText());
 			}catch (NumberFormatException e){
-				e.printStackTrace();
+				System.out.println("Error from getIP()");
 				gridExtra3.setText("Error: please provide a value port number");
 				return;
 			}
@@ -180,15 +176,80 @@ public void allAction(){
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				System.out.println("sleep thread");
 			}		
 	
 	gridExtra3.setText(portField.getText());
-	SocketLis serverCon = new SocketLis();
-	serverCon.listen(this);
-	gridName.setText(serverCon.getReadIn());
+	serverCon = new SocketLis();
+			try {
+				serverCon.listen(this);
+			} catch (IOException e) {
+				System.out.println("IO error from GUIServer");
+			}
+	
+	//gridName.setText(serverCon.getReadIn());
 	
 }
+
+public JTextField getGridName() {
+	return gridName;
+}
+
+
+public void setGridName(JTextField gridName) {
+	this.gridName = gridName;
+}
+
+
+public JTextField getGridAddress() {
+	return gridAddress;
+}
+
+
+public void setGridAddress(JTextField gridAddress) {
+	this.gridAddress = gridAddress;
+}
+
+
+public JTextField getGridCommand() {
+	return gridCommand;
+}
+
+
+public void setGridCommand(JTextField gridCommand) {
+	this.gridCommand = gridCommand;
+}
+
+
+public JTextField getGridExtra1() {
+	return gridExtra1;
+}
+
+
+public void setGridExtra1(JTextField gridExtra1) {
+	this.gridExtra1 = gridExtra1;
+}
+
+
+public JTextField getGridExtra2() {
+	return gridExtra2;
+}
+
+
+public void setGridExtra2(JTextField gridExtra2) {
+	this.gridExtra2 = gridExtra2;
+}
+
+
+public JTextField getGridExtra3() {
+	return gridExtra3;
+}
+
+
+public void setGridExtra3(JTextField gridExtra3) {
+	this.gridExtra3 = gridExtra3;
+}
+
 
 public void stop(){
 	
@@ -201,7 +262,7 @@ public void stop(){
 		try {
 			serverCon.close();
 		} catch (IOException e) {
-			//e.printStackTrace();
+			System.out.println("Error from stop()");
 			return;
 		}
 }

@@ -5,9 +5,8 @@ import java.net.*;
 
 public class ServerAccess {
 	
-	Socket connectSocket = null;
-    PrintWriter out = null;
-    BufferedReader in = null;
+	Socket connectSocket;
+	PrintWriter out;
     String serverIp;
     int serverPort;
 	
@@ -18,26 +17,20 @@ public class ServerAccess {
 		
 }
 		
-	public void connect(GUIClient GUI, String outputText){	
+	public void connect(GUIClient GUI, String outPutText) throws UnknownHostException, IOException{	
 
-        try {
-            connectSocket = new Socket(serverIp, serverPort);
-            out = new PrintWriter(connectSocket.getOutputStream(), true);
-            out.print(outputText);
-        }catch(IOException e){
-        	e.printStackTrace();
-        }
+      connectSocket = new Socket(serverIp, serverPort);
+      out = new PrintWriter(connectSocket.getOutputStream(), true);
+      out.println(outPutText); 
+      
         	
 }
 	
-	public void connectClose(){
+	public void connectClose() throws IOException{
+	
+		out.close();
+		connectSocket.close();
 		
-		try {
-			out.close();
-			connectSocket.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		
 		
 	}

@@ -3,6 +3,8 @@ package test.Konami;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 import javax.swing.*;
 
@@ -158,12 +160,16 @@ public class GUIClient extends JFrame implements ActionListener {
 	
 			
 		gettextAreaRespond().setText(gettextAreaOut().getText());
-				
 		ServerAccess SA = new ServerAccess(ipAddress, portNumber);
-					
-		SA.connect(this, gettextAreaOut().getText()); //sends the test out.
+		try {
+			SA.connect(this, textAreaOut.getText());
+			SA.connectClose();
+		} catch (UnknownHostException e) {
+			System.out.println("UnknownHostException");
+		} catch (IOException e) {
+			System.out.println("IOException");
+		}
 		
-		SA.connectClose();
 }
 
 	@Override

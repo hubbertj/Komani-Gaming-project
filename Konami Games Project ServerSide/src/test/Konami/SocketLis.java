@@ -5,26 +5,20 @@ import java.io.*;
 
 public class SocketLis {
 	
-	private String readIn;
-	private Socket sock;
-	private ServerSocket serverConnect;
+	 String readIn = "init";
+	 Socket sock;
+	 ServerSocket serverConnect;
 
-	
-
-	public void listen(GUIServer gs){
-		
-		
-		try {
-			serverConnect = new ServerSocket(gs.
-					getServerPortNumber());
-			sock = serverConnect.accept();
-			InputStream dataIn = sock.getInputStream();
-			BufferedReader inside
-	          = new BufferedReader(new InputStreamReader(dataIn));
+	public void listen(GUIServer gs) throws IOException{
+		serverConnect = new 
+				ServerSocket(gs.getServerPortNumber());
+		sock = serverConnect.accept();
+		BufferedReader inside = new BufferedReader(new InputStreamReader(sock.getInputStream())); 
+		while (readIn != null){
 			readIn = inside.readLine();
-		} catch (IOException e) { 
-			
-		}	
+			gs.getGridName().setText(readIn);
+			System.out.println(readIn);
+		}
 }
 	
 	public void close() throws IOException{
