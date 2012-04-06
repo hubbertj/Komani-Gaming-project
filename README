@@ -1,0 +1,24 @@
+This is a project which Komani Game is testing
+
+1: The Java Language.
+
+2: The Java API's swing GUI/Tables Socket Communication.
+
+3: Parsing and XML file.
+
+Task Description:
+
+Create two Java Swing GUI programs:
+
+1. Socket Server Moniter:
+
+	a. Components:
+		i.Input fields - TCPIP Address, Port
+
+		ii.	Socket Listener
+
+		iii.	Grid (display Command, Receive Date, Process Date)
+
+		iv. 	Buttons - Start Server, Stop Server.
+
+
