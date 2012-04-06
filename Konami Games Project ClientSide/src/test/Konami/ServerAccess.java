@@ -8,47 +8,37 @@ public class ServerAccess {
 	Socket connectSocket = null;
     PrintWriter out = null;
     BufferedReader in = null;
-    String ServerIp;
-    int ServerPort;
+    String serverIp;
+    int serverPort;
 	
-	public ServerAccess(String inputServerIp, int inputServerPort){
+	public ServerAccess(String inputserverIp, int inputserverPort){
 		
-		this.ServerIp = inputServerIp;
+		this.serverIp = inputserverIp;	
+		this.serverPort = inputserverPort;
 		
-		this.ServerPort = inputServerPort;
+}
 		
-	}
-		
-	public void connect(GUIClient GUI) throws IOException{	
+	public void connect(GUIClient GUI, String outputText){	
 
         try {
-            connectSocket = new Socket(ServerIp, ServerPort);
+            connectSocket = new Socket(serverIp, serverPort);
             out = new PrintWriter(connectSocket.getOutputStream(), true);
-            in = new BufferedReader(new InputStreamReader(
-                                        connectSocket.getInputStream()));
-        } catch (UnknownHostException e) {
-            System.err.println("Cannot Connect to server");
-            //System.exit(1);
-        } catch (IOException e) {
-            System.err.println("Couldn't get I/O for "
-                               + "the connection to: " + ServerIp.toString());
-           // System.exit(1);
+            out.print(outputText);
+        }catch(IOException e){
+        	e.printStackTrace();
         }
-
-	BufferedReader stdIn = new BufferedReader(
-                                   new InputStreamReader(System.in));
-	
-	String clientInput = GUI.getJTareaOut().getText();
-
-	while ((clientInput = stdIn.readLine())!= null) {
-	    out.println(clientInput);
-	    System.out.println("Writing: " + in.readLine());
-	}
-
-	out.close();
-	in.close();
-	stdIn.close();
-	connectSocket.close();
-	
-    }
+        	
 }
+	
+	public void connectClose(){
+		
+		try {
+			out.close();
+			connectSocket.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+ }

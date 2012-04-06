@@ -3,7 +3,6 @@ package test.Konami;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.*;
 
@@ -13,21 +12,21 @@ public class GUIClient extends JFrame implements ActionListener {
 	
 	// instance variables
 	
-	private JButton 	JBSend;
+	private JButton 	buttonSend;
 	
-	private JTextField 	JTip;
-	private JTextField 	JTport;
+	private JTextField 	textIp;
+	private JTextField 	textPort;
 	
-	private JLabel		JLip;
-	private JLabel		JLport;
+	private JLabel		labelIp;
+	private JLabel		labelPort;
 	
-	private JTextArea 	JTareaOut;
-	private JTextArea 	JTareaRespond;
-	private JPanel 		JPcenter;
-	private JPanel		JPsouth;
-	private JPanel		JPnorth;
-	private JPanel		JPintern;
-	int counter = 1;
+	private JTextArea 	textAreaOut;
+	private JTextArea 	textAreaRespond;
+	private JPanel 		panelCenter;
+	private JPanel		panelSouth;
+	private JPanel		panelNorth;
+	private JPanel		panelIntern;
+	
 	
 	
 	public GUIClient (String windowName) {
@@ -38,68 +37,68 @@ public class GUIClient extends JFrame implements ActionListener {
 	public void go(){
 		
 		//North panel of the GUI.
-		JPnorth							= new JPanel();
-		JBSend							= new JButton("Send Message");
+		panelNorth	= new JPanel();
+		buttonSend	= new JButton("Send Message");
 		
-		JPnorth.setBackground(Color.lightGray);
-		JPnorth.add(JBSend);
+		panelNorth.setBackground(Color.lightGray);
+		panelNorth.add(buttonSend);
 		
 		//Center panel of the GUI.
-		JPcenter 						= new JPanel();
-		JPcenter.setBackground(Color.GRAY);
+		panelCenter = new JPanel();
+		panelCenter.setBackground(Color.GRAY);
 		
-		JTareaRespond 					= new JTextArea(20,30);
-		JScrollPane scrollPaneRespond 	= new JScrollPane(JTareaRespond);
-		JTareaRespond.setLineWrap(true);
-		JTareaRespond.setEditable(false);
-		JTareaRespond.setText("Respond Section:");
+		textAreaRespond = new JTextArea(15,30);
+		JScrollPane scrollPaneRespond = new JScrollPane(textAreaRespond);
+		textAreaRespond.setLineWrap(true);
+		textAreaRespond.setEditable(false);
+		textAreaRespond.setText("Respond Section:");
 		
 
-		JTareaOut 						= new JTextArea(20,30);
-		JScrollPane scrollPaneOutput 	= new JScrollPane(JTareaOut);
-		JTareaOut.setLineWrap(true);
-		JTareaOut.setText("Output Section : <place XML data here>");
+		textAreaOut = new JTextArea(15,30);
+		JScrollPane scrollPaneOutput = new JScrollPane(textAreaOut);
+		textAreaOut.setLineWrap(true);
+		textAreaOut.setText("Output Section : <place XML data here>");
 		
 	
-		JPcenter.add(scrollPaneOutput);
-		JPcenter.add(scrollPaneRespond);
+		panelCenter.add(scrollPaneOutput);
+		panelCenter.add(scrollPaneRespond);
 		
 		//South panel of the GUI.
-		JPsouth 		= new JPanel();
-		JPintern		= new JPanel();
-		JPintern.setBackground(Color.GRAY);
+		panelSouth = new JPanel();
+		panelIntern = new JPanel();
+		panelIntern.setBackground(Color.GRAY);
 		
-		JTip 			= new JTextField(30);
-		JTport			= new JTextField(30);
-		
-		
-		JLip			= new JLabel("Enter IP");
-		JLport			= new JLabel("Enter Port");
+		textIp = new JTextField(30);
+		textPort = new JTextField(30);
 		
 		
-		JPintern.add(JLip,BorderLayout.NORTH);
-		JPintern.add(JTip, BorderLayout.NORTH);
+		labelIp	= new JLabel("Enter IP");
+		labelPort = new JLabel("Enter Port");
 		
-		JPintern.add(JLport, BorderLayout.SOUTH);
-		JPintern.add(JTport, BorderLayout.SOUTH);
 		
-		JPsouth.add(JPintern,BorderLayout.CENTER);
+		panelIntern.add(labelIp,BorderLayout.NORTH);
+		panelIntern.add(textIp, BorderLayout.NORTH);
+		
+		panelIntern.add(labelPort, BorderLayout.SOUTH);
+		panelIntern.add(textPort, BorderLayout.SOUTH);
+		
+		panelSouth.add(panelIntern,BorderLayout.CENTER);
 		
 		// Adding to my main JFrame.
 		
-		this.add(JPnorth, BorderLayout.NORTH);
-		this.add(JPcenter, BorderLayout.CENTER);
-		this.add(JPsouth, BorderLayout.SOUTH);
+		this.add(panelNorth, BorderLayout.NORTH);
+		this.add(panelCenter, BorderLayout.CENTER);
+		this.add(panelSouth, BorderLayout.SOUTH);
 		
 		//Adding action to buttons and text fields.
 		
-		JBSend.addActionListener(this);
-		JTip.addActionListener(this);
-		JTport.addActionListener(this);
+		buttonSend.addActionListener(this);
+		textIp.addActionListener(this);
+		textPort.addActionListener(this);
 		
 		//Settings for the main JFame.
 		
-		this.setSize (new Dimension(900,700));
+		this.setSize (new Dimension(900,400));
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBackground(Color.BLACK);
@@ -107,87 +106,80 @@ public class GUIClient extends JFrame implements ActionListener {
 		
 		}
 	
-	public JTextArea getJTareaOut() {
-		return JTareaOut;
+	public JTextArea gettextAreaOut() {
+		return textAreaOut;
 	}
 
-	public void setJTareaOut(JTextArea jTareaOut) {
-		JTareaOut = jTareaOut;
+	public void settextAreaOut(JTextArea textAreaOut) {
+		this.textAreaOut = textAreaOut;
 	}
 
-	public JTextArea getJTareaRespond() {
-		return JTareaRespond;
+	public JTextArea gettextAreaRespond() {
+		return textAreaRespond;
 	}
 
-	public void setJTareaRespond(JTextArea jTareaRespond) {
-		JTareaRespond = jTareaRespond;
+	public void settextAreaRespond(JTextArea textAreaRespond) {
+		this.textAreaRespond = textAreaRespond;
 	}
+	
 	
 	// Method for common action to this class.
-	
 	private void buttonAction(){
 		
-		String ipAddress = JTip.getText();
+		String ipAddress = textIp.getText();
 		int portNumber = 100;
 	
-		if (getJTareaOut().getText().isEmpty()) {
-			getJTareaRespond().setText("Error: missing <xml> data in " +
+		if (gettextAreaOut().getText().isEmpty()) {
+			gettextAreaRespond().setText("Error: missing <xml> data in " +
 					"Output field");
-			return;}
+			return;
+			}
 		
-		else if (JTport.getText().isEmpty()) {
-			getJTareaRespond().setText("Error: missing port number data in " +
+		else if (textPort.getText().isEmpty()) {
+			gettextAreaRespond().setText("Error: missing port number data in " +
 					"Port Number field");
-			return;}
+			return;
+			}
 		
-		else if (JTip.getText().isEmpty()) {
-			getJTareaRespond().setText("Error: missing IP address in " +
+		else if (textIp.getText().isEmpty()) {
+			gettextAreaRespond().setText("Error: missing IP address in " +
 					"IP Address field");
-			return;}
+			return;
+			}
 		
 		// Tries to parse input to port number to a Integer.
 		
 					try	{
-			 				portNumber = Integer.parseInt(JTport.getText());}
-			
-					catch (NumberFormatException e){
-			
-							getJTareaRespond().setText("Error: Invaild port number");
-							return;}
+			 			portNumber = Integer.parseInt(textPort.getText());
+			 		}catch (NumberFormatException e){
+			 			gettextAreaRespond().setText("Error: Invaild port number");
+						return;
+					}
 	
 			
-		getJTareaRespond().setText(getJTareaOut().getText());
+		gettextAreaRespond().setText(gettextAreaOut().getText());
 				
 		ServerAccess SA = new ServerAccess(ipAddress, portNumber);
 					
-					try {
-						
-							SA.connect(this);}
-					
-					catch (IOException e) {
-						
-							e.printStackTrace();
-							return;}
-					
-		System.out.println("completed " + counter);
-		counter++;}
+		SA.connect(this, gettextAreaOut().getText()); //sends the test out.
 		
-	
+		SA.connectClose();
+}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if (e.getSource() == JBSend){
+		if (e.getSource() == buttonSend){
 			
 					this.buttonAction();
 			}
 		
-		else if(e.getSource() == JTip){
+		else if(e.getSource() == textIp){
 			
 					this.buttonAction();
 			}
 		
-		else if(e.getSource() == JTport){
+		else if(e.getSource() == textPort){
 			
 					this.buttonAction();
 			}

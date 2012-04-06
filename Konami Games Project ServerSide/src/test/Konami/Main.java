@@ -4,10 +4,7 @@ public class Main {
 	
 	public static void main (String [] args){
 	
-	GUIServer sgui = new GUIServer("Server Side Program");
-	sgui.go();
-	
+	GUIServer sGui = new GUIServer("Server Side Program");
+	sGui.go();
 	}
-	
-
 }

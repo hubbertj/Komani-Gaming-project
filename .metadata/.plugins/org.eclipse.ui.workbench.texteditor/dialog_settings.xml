@@ -2,31 +2,37 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="243" key="DIALOG_WIDTH"/>
-		<item value="143" key="DIALOG_Y_ORIGIN"/>
-		<item value="606" key="DIALOG_X_ORIGIN"/>
+		<item value="14" key="DIALOG_Y_ORIGIN"/>
 		<item value="379" key="DIALOG_HEIGHT"/>
+		<item value="632" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="jpCenter" key="selection"/>
+		<item value="serverCon" key="selection"/>
 		<list key="findhistory">
-			<item value="content"/>
-			<item value="compsToExperiment"/>
-			<item value="userInput"/>
-			<item value="echoSocket"/>
-			<item value="JTareaout"/>
+			<item value="SL"/>
+			<item value="ServerPort"/>
+			<item value="ServerIp"/>
+			<item value="serverIp"/>
+			<item value="JPintern"/>
+			<item value="JPnorth"/>
+			<item value="JPsouth"/>
+			<item value="JPcenter"/>
 		</list>
 		<list key="replacehistory">
-			<item value="jpCenter"/>
-			<item value="xmlLayout"/>
-			<item value="clientInput"/>
-			<item value="connectSocket"/>
-			<item value="JTareaOut"/>
+			<item value="serverCon"/>
+			<item value="serverPort"/>
+			<item value="serverIp"/>
+			<item value=""/>
+			<item value="panelIntern"/>
+			<item value="panelNorth"/>
+			<item value="panelSouth"/>
+			<item value="panelCenter"/>
 		</list>
 	</section>
 </section>

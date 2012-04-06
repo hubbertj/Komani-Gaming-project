@@ -1,18 +1,13 @@
 package test.Konami;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import javax.swing.*;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
 public class GUIServer extends JFrame implements ActionListener {
@@ -35,11 +30,14 @@ public class GUIServer extends JFrame implements ActionListener {
 	private JTextField 	gridExtra2;
 	private JTextField 	gridExtra3;
 	
+	public SocketLis serverCon = null;
+	
 	
 	
 public GUIServer(String titleName){
 	
-	this.setTitle(titleName);}
+	this.setTitle(titleName);
+}
 
 
 public int getServerPortNumber() {
@@ -61,6 +59,8 @@ public void go(){
 	jpNorth 		= new JPanel();
 	jpNorth.setBackground(Color.WHITE);
 	
+	
+	stopButton.setEnabled(false);
 	jpNorth.add(startButton, BorderLayout.WEST);
 	jpNorth.add(stopButton, BorderLayout.EAST);
 	
@@ -82,7 +82,9 @@ public void go(){
 	gridCommand.setEditable(false);  	
 	gridExtra1.setEditable(false);  	
 	gridExtra2.setEditable(false); 	
-	gridExtra3.setEditable(false); 
+	gridExtra3.setEditable(false);
+	
+	
 	
 	gridName.setBackground(Color.LIGHT_GRAY);
 	gridAddress.setBackground(Color.LIGHT_GRAY); 	
@@ -148,13 +150,11 @@ public void getIp(){
 	
 	try {
 	    InetAddress addr = InetAddress.getLocalHost();
-
 	    // Get IP Address
-	    
-	     ipAddr = addr.getAddress();
-	    
-	} catch (UnknownHostException e) { }
-	
+	    ipAddr = addr.getAddress(); 
+	} catch (UnknownHostException e) { 
+		e.printStackTrace();
+	}
 	ipField.setText(ipAddr[0]+"."+ipAddr[1]+"."+ipAddr[2]+"."+ipAddr[3]);
 }
 
@@ -164,43 +164,60 @@ public void allAction(){
 	
 	if (portField.getText().isEmpty()){
 		gridExtra3.setText("Error: please provide a value port number");
-		return;}
-	
+		return;
+		}
 			try	{
-				serverPortNumber = Integer.parseInt(portField.getText());}
-
-			catch (NumberFormatException e){
-				
+				serverPortNumber = Integer.parseInt(portField.getText());
+			}catch (NumberFormatException e){
 				e.printStackTrace();
 				gridExtra3.setText("Error: please provide a value port number");
-				return;}
+				return;
+			}
+			
+	startButton.setEnabled(false);
+	stopButton.setEnabled(true);
+	
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}		
 	
 	gridExtra3.setText(portField.getText());
-	System.out.println("check");	
+	SocketLis serverCon = new SocketLis();
+	serverCon.listen(this);
+	gridName.setText(serverCon.getReadIn());
+	
 }
 
 public void stop(){
 	
+	this.portField.setText(null);
+	this.gridExtra3.setText(null);
+	this.gridName.setText(null);
+	stopButton.setEnabled(false);
+	startButton.setEnabled(true);
+	
+		try {
+			serverCon.close();
+		} catch (IOException e) {
+			//e.printStackTrace();
+			return;
+		}
 }
 	
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
+@Override
+public void actionPerformed(ActionEvent e) {
 	
 		if (e.getSource() == startButton){
-			
 			this.allAction();
 			}
 		else if (e.getSource() == stopButton){
-			
 			this.stop();
 			}
 		else if (e.getSource() == portField){
-			
 			this.allAction();
 			}
-		
-		
 		
 	}
 
