@@ -13,7 +13,7 @@ Create two Java Swing GUI programs:
 1. Socket Server Moniter:
 
 	a. Components:
-		i.Input fields - TCPIP Address, Port
+		i.	Input fields - TCPIP Address, Port
 
 		ii.	Socket Listener
 
@@ -21,4 +21,40 @@ Create two Java Swing GUI programs:
 
 		iv. 	Buttons - Start Server, Stop Server.
 
+	b. Function
 
+		i. 	Open Socket and Listen for incoming data.
+
+		ii. 	Catch data, determine if it is XML.
+
+			1. 	If it is XML, parse out the "Command" field and display it in the grid along
+				with a receive data. Pass to a work queue that "processes" the command.
+				The Process can simply be outputting the command and data/time to the system.
+			
+			2.	If not XML, place "Unknown Command" in the grid.
+
+			3.	Send response to originating socket.
+
+
+
+2. Client Emulator:
+	
+	a. Components:
+
+		i. 	Input fields - TCP/IP Address, port
+
+		ii. 	Text Area in a scroll Pane for outgoing message.
+
+		iii. 	Text Area in a scroll pane for respose message.
+
+		iv. 	Buttons - Send Message.
+
+
+	b. Functionality:
+
+		i. Type of Paste and XML message in the text area.
+
+		ii. When you press "send Message", open socket based on the TCP/IP address
+			port entered and send the message.
+
+		iii. Display the response sent by server in the "Response" text area.
