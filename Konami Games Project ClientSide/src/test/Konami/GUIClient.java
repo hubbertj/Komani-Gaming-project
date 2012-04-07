@@ -126,7 +126,7 @@ public class GUIClient extends JFrame implements ActionListener {
 	
 	
 	// Method for common action to this class.
-	private void buttonAction(){
+	private void buttonAction() {
 		
 		String ipAddress = textIp.getText();
 		int portNumber = 100;
@@ -162,12 +162,19 @@ public class GUIClient extends JFrame implements ActionListener {
 		gettextAreaRespond().setText(gettextAreaOut().getText());
 		ServerAccess SA = new ServerAccess(ipAddress, portNumber);
 		try {
+			
 			SA.connect(this, textAreaOut.getText());
+			gettextAreaRespond().setText(SA.getMyServerString());
+			Thread.sleep(4000);
 			SA.connectClose();
+			
+			
 		} catch (UnknownHostException e) {
 			System.out.println("UnknownHostException");
 		} catch (IOException e) {
 			System.out.println("IOException");
+		}catch (InterruptedException e){
+			System.out.println("button Action couldn't sleep");
 		}
 		
 }
