@@ -185,15 +185,9 @@ public void allAction(){
 				serverCon.listen(this);
 			} catch (IOException e) {
 				System.out.println("IO error from GUIServer");
-				return;
 			}
-			
-	//Using XML data to update grid
-			
-	XmlReceived xml = new XmlReceived(serverCon.getXML());
-	gridName.setText(xml.updateAddressGrid());
-	gridAddress.setText(xml.updateCommandGrid());
-	gridCommand.setText(xml.updateNameGrid());
+	
+	//gridName.setText(serverCon.getReadIn());
 	
 }
 

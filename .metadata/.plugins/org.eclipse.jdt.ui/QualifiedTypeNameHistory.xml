@@ -34,4 +34,5 @@
 <fullyQualifiedTypeName name="java.io.DataOutputStream"/>
 <fullyQualifiedTypeName name="java.io.PrintWriter"/>
 <fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="test.Konami.XmlReceived"/>
 </qualifiedTypeNameHistroy>
