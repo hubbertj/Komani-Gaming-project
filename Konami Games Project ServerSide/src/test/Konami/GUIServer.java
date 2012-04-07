@@ -30,7 +30,7 @@ public class GUIServer extends JFrame implements ActionListener {
 	private JTextField 	gridExtra2;
 	private JTextField 	gridExtra3;
 	
-	public SocketLis serverCon;
+	public SocketLis 	serverCon;
 	
 	
 	
@@ -67,12 +67,12 @@ public void go(){
 	//center layout , making fields for the grid.
 	
 	
-	gridName = new JTextField("Name");  
-	gridAddress = new JTextField("Address"); 	
-	gridCommand = new JTextField("Command"); 	
-	gridExtra1 = new JTextField(); 	
-	gridExtra2 = new JTextField(); 	
-	gridExtra3 = new JTextField();
+	gridName = new JTextField("Name Field: ");  
+	gridAddress = new JTextField("Address Field: "); 	
+	gridCommand = new JTextField("Command Field: "); 	
+	gridExtra1 = new JTextField("Extra"); 	
+	gridExtra2 = new JTextField("Extra"); 	
+	gridExtra3 = new JTextField("Extra");
 	
 	xmlLayout = new GridLayout(2, 3);
 	jpCenter = new JPanel(xmlLayout);
@@ -138,6 +138,9 @@ public void go(){
 	this.setResizable(false);
 	this.setVisible(true);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+	
+	getIp();
+	
 }
 	
 public void getIp(){
@@ -156,7 +159,7 @@ public void getIp(){
 
 public void allAction(){
 	
-	this.getIp();
+	//this.getIp();
 	
 	if (portField.getText().isEmpty()){
 		gridExtra3.setText("Error: please provide a value port number");
@@ -190,10 +193,11 @@ public void allAction(){
 			
 	//Using XML data to update grid
 			
-	XmlReceived xml = new XmlReceived(serverCon.getXML());
-	gridName.setText(xml.updateAddressGrid());
-	gridAddress.setText(xml.updateCommandGrid());
-	gridCommand.setText(xml.updateNameGrid());
+	XmlReceived xml = new XmlReceived(serverCon.getXML(),this);
+	xml.process();
+	gridName.setText(xml.updateNameGrid());
+	gridAddress.setText(xml.updateAddressGrid());
+	gridCommand.setText(xml.updateCommandGrid());
 	
 }
 
@@ -259,11 +263,14 @@ public void setGridExtra3(JTextField gridExtra3) {
 
 public void stop(){
 	
-	this.portField.setText(null);
-	this.gridExtra3.setText(null);
-	this.gridName.setText(null);
-	stopButton.setEnabled(false);
-	startButton.setEnabled(true);
+	this.gridName.setText("Name Field: ");
+	this.gridAddress.setText("Addres Field: ");
+	this.gridCommand.setText("Command Field: ");
+	this.gridExtra1.setText("Extra");  	
+	this.gridExtra2.setText("Extra");  
+	this.gridExtra3.setText("Extra");  
+	this.stopButton.setEnabled(false); 
+	this.startButton.setEnabled(true);  
 	
 		try {
 			serverCon.close();

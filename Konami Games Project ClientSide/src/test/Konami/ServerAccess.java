@@ -35,8 +35,8 @@ public class ServerAccess {
       out.println(outPutText);
       out.close();
       
-      myBR = new BufferedReader(new InputStreamReader(connectSocket.getInputStream()));
-      myServerString = myBR.readLine();
+      //myBR = new BufferedReader(new InputStreamReader(connectSocket.getInputStream()));
+      //myServerString = myBR.readLine();
       
       
         	
@@ -44,6 +44,6 @@ public class ServerAccess {
 	
 	public void connectClose() throws IOException{
 		connectSocket.close();
-		myBR.close();		
+		//myBR.close();		
 	}
  }

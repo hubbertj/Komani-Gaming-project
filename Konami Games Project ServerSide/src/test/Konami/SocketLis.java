@@ -64,7 +64,5 @@ public class SocketLis {
 			System.out.println("Sleep Thread");
 			
 		}
-		
-		System.out.println(XML);
 	}
 }
