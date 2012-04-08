@@ -1,8 +1,10 @@
 package test.Konami;
 
 import javax.xml.parsers.*;
+
 import org.xml.sax.InputSource;
 import org.w3c.dom.*;
+
 import java.io.*;
 
 
@@ -12,7 +14,7 @@ public class XmlReceived {
 	private String xmlAddress = "Null";
 	private String xmlCommand = "Null";
 	private String xml;
-	public GUIServer gui;
+	public 	GUIServer gui;
 	
 	
 public XmlReceived (String Xml, GUIServer gui){
@@ -27,73 +29,86 @@ public static String getCharacterDataFromElement(Element e) {
 		       			CharacterData cd = (CharacterData) child;
 		    return cd.getData();
 		    }
-		    return "?";
+		    return "Please check the XML.";
 }
 
 public void process(){
 	 
-		    try {
-		        DocumentBuilderFactory dbf =
-		            DocumentBuilderFactory.newInstance();
-		        DocumentBuilder db = dbf.newDocumentBuilder();
-		        InputSource is = new InputSource();
-		        is.setCharacterStream(new StringReader(xml));
+	try {
+        DocumentBuilderFactory dbf =
+            DocumentBuilderFactory.newInstance();
+        DocumentBuilder db = dbf.newDocumentBuilder();
+        InputSource is = new InputSource();
+        is.setCharacterStream(new StringReader(xml));
+        
+        Document doc = db.parse(is);
+    
+// removed the command from the XML message.
+        NodeList nodesMessage = doc.getElementsByTagName("Message");
+        Element elementMessage = (Element) nodesMessage.item(0);
+        NodeList myCommands = elementMessage.getElementsByTagName("Command");
+        Element commandStr = (Element) myCommands.item(0);
+        String clientCommand = getCharacterDataFromElement(commandStr);
+        
+// command to be send to the server
+        
+        System.out.println("Server please" +
+        				" process this command " + clientCommand); 
+        
+        this.xmlCommand = clientCommand;
+        
+        NodeList nodes = doc.getElementsByTagName("Row");
+       
+// loops thought the XML Message for values.
+        for (int x = 0; x < nodes.getLength(); x++ ){
+        
+        
+			        Element element = (Element) nodes.item(x); //what I need to loop
+			        
+			        NodeList name = element.getElementsByTagName("Description");
+			        Element line = (Element) name.item(0); 
+			        
+			        String conVar = getCharacterDataFromElement(line);
+			        conVar = conVar.replace("\"", "");
+			        String nameObj = "Name";
+			        String addressObj = "Address";
+			        
+			        
 
-		        Document doc = db.parse(is);
-		        NodeList nodes = doc.getElementsByTagName("Message");
+			        
+					NodeList addr = element.getElementsByTagName("Value");
+			        Element lineaddress = (Element) addr.item(0);
+			   
+			        	if (conVar.equals(addressObj)){
+			                String xmlAddress = getCharacterDataFromElement(lineaddress);
+			                xmlAddress = xmlAddress.replace("\"", "");
+			                this.xmlAddress = xmlAddress;  
+			        	}
+			        	if (conVar.equals(nameObj)){
+			                String xmlName = getCharacterDataFromElement(lineaddress);
+			                xmlName = xmlName.replace("\"", "");
+			                this.xmlName = xmlName;	
+			        	}
+               
+        	}
+            
+    }catch(Exception e){
+    	
+    System.out.println ("issue in the XML processing");
+    }
+}
 
-		        
-		        for (int i = 0; i < nodes.getLength(); i++) {
-		           Element element = (Element) nodes.item(i);
-
-		           NodeList name = element.getElementsByTagName("name");
-		           Element line = (Element) name.item(0);
-		           System.out.println("Name: " + getCharacterDataFromElement(line));
-		           			try{
-		           				xmlName = getCharacterDataFromElement(line);
-		           			}catch (Exception e){
-		           				System.out.println("Process Error Name");
-		           				
-		           			}
-		           
-		           NodeList address = element.getElementsByTagName("address");
-		           line = (Element) address.item(0);
-		           System.out.println("Address: " + getCharacterDataFromElement(line));
-				           try{
-				        	   xmlAddress = getCharacterDataFromElement(line);
-		          			}catch (Exception e){
-		          				System.out.println("Process Error Address");
-		          				
-		          			}
-				           
-				   NodeList command = element.getElementsByTagName("Command");
-				   line = (Element) command.item(0);
-				   System.out.println("Server please process this command: " + getCharacterDataFromElement(line));
-						    try{
-						    	xmlCommand = getCharacterDataFromElement(line);
-						    }catch (Exception e){
-						    	System.out.println("Process Error Command");
-						    	
-				          	}					           
-				     
-		        }
-		    }
-		    catch (Exception e) {
-		        gui.getGridExtra1().setText("Error in XML file " +
-		        		",are all Tags correct?");		    
-		    }
-	}
 	public String updateNameGrid(){
-		return xmlName.replace("\"","");
+		return this.xmlName;
 				
-	}
+}
 	public String updateAddressGrid(){
-		return xmlAddress.replace("\"","");
+		return this.xmlAddress;
 		
-	}
+}
 	public String updateCommandGrid(){
-		return xmlCommand.replace("\"","");		
+		return this.xmlCommand;		
 		
-	}
+}
 
 }

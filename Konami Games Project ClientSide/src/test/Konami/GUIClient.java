@@ -128,8 +128,11 @@ public class GUIClient extends JFrame implements ActionListener {
 	// Method for common action to this class.
 	private void buttonAction() {
 		
+		
 		String ipAddress = textIp.getText();
 		int portNumber = 100;
+		
+		gettextAreaRespond().setText("Message going out ..\n" + textAreaOut.getText());
 	
 		if (gettextAreaOut().getText().isEmpty()) {
 			gettextAreaRespond().setText("Error: missing <xml> data in " +
@@ -159,7 +162,7 @@ public class GUIClient extends JFrame implements ActionListener {
 					}
 	
 			
-		gettextAreaRespond().setText(gettextAreaOut().getText());
+		
 		ServerAccess SA = new ServerAccess(ipAddress, portNumber);
 		try {
 			
