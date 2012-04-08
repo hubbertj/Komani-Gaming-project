@@ -5,12 +5,12 @@ import java.net.*;
 
 public class ServerAccess {
 	
-	Socket connectSocket;
-	PrintWriter out;
-    String serverIp;
-    int serverPort;
-    BufferedReader myBR;
-    String myServerString;
+	public Socket connectSocket;
+	public PrintWriter out;
+    private String serverIp;
+    private int serverPort;
+    public BufferedReader myBR;
+    private String myServerString;
 	
 	public String getMyServerString() {
 		return myServerString;
@@ -28,6 +28,8 @@ public class ServerAccess {
 }
 		
 	public void connect(GUIClient GUI, String outPutText) throws UnknownHostException, IOException{	
+
+//connection objects for writing and reading from the server 
 		
       connectSocket = new Socket(serverIp, serverPort);
       
@@ -35,15 +37,13 @@ public class ServerAccess {
       out.println(outPutText);
       out.close();
       
-      //myBR = new BufferedReader(new InputStreamReader(connectSocket.getInputStream()));
-      //myServerString = myBR.readLine();
-      
-      
-        	
+      myBR = new BufferedReader(new InputStreamReader(connectSocket.getInputStream()));
+      //myServerString = myBR.readLine();        	
 }
-	
+
+// used for closing the socket	
 	public void connectClose() throws IOException{
 		connectSocket.close();
-		//myBR.close();		
+		myBR.close();
 	}
  }

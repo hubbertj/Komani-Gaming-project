@@ -12,7 +12,7 @@ import javax.swing.*;
 @SuppressWarnings("serial")
 public class GUIClient extends JFrame implements ActionListener {
 	
-	// instance variables
+// instance variables
 	
 	private JButton 	buttonSend;
 	
@@ -34,11 +34,11 @@ public class GUIClient extends JFrame implements ActionListener {
 	public GUIClient (String windowName) {
 		
 		this.setTitle(windowName);
-		}
+}
 		
 	public void go(){
 		
-		//North panel of the GUI.
+//North panel of the GUI.
 		panelNorth	= new JPanel();
 		buttonSend	= new JButton("Send Message");
 		
@@ -65,7 +65,7 @@ public class GUIClient extends JFrame implements ActionListener {
 		panelCenter.add(scrollPaneOutput);
 		panelCenter.add(scrollPaneRespond);
 		
-		//South panel of the GUI.
+//South panel of the GUI.
 		panelSouth = new JPanel();
 		panelIntern = new JPanel();
 		panelIntern.setBackground(Color.GRAY);
@@ -86,53 +86,50 @@ public class GUIClient extends JFrame implements ActionListener {
 		
 		panelSouth.add(panelIntern,BorderLayout.CENTER);
 		
-		// Adding to my main JFrame.
-		
+// Adding to my main JFrame		
 		this.add(panelNorth, BorderLayout.NORTH);
 		this.add(panelCenter, BorderLayout.CENTER);
 		this.add(panelSouth, BorderLayout.SOUTH);
 		
-		//Adding action to buttons and text fields.
-		
+//Adding action to buttons and text fields.
 		buttonSend.addActionListener(this);
 		textIp.addActionListener(this);
 		textPort.addActionListener(this);
 		
-		//Settings for the main JFame.
-		
+//Settings for the main JFame.
 		this.setSize (new Dimension(900,400));
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBackground(Color.BLACK);
 		this.setVisible(true);
 		
-		}
+}
 	
 	public JTextArea gettextAreaOut() {
 		return textAreaOut;
-	}
+}
 
 	public void settextAreaOut(JTextArea textAreaOut) {
 		this.textAreaOut = textAreaOut;
-	}
+}
 
 	public JTextArea gettextAreaRespond() {
 		return textAreaRespond;
-	}
+}
 
 	public void settextAreaRespond(JTextArea textAreaRespond) {
 		this.textAreaRespond = textAreaRespond;
-	}
+}
 	
 	
-	// Method for common action to this class.
+// Method for common action to this class.
 	private void buttonAction() {
 		
 		
 		String ipAddress = textIp.getText();
 		int portNumber = 100;
 		
-		gettextAreaRespond().setText("Message going out ..\n" + textAreaOut.getText());
+//Checks input data on the client side		
 	
 		if (gettextAreaOut().getText().isEmpty()) {
 			gettextAreaRespond().setText("Error: missing <xml> data in " +
@@ -152,7 +149,7 @@ public class GUIClient extends JFrame implements ActionListener {
 			return;
 			}
 		
-		// Tries to parse input to port number to a Integer.
+//Tries to parse input to port number to a Integer.
 		
 					try	{
 			 			portNumber = Integer.parseInt(textPort.getText());
@@ -167,7 +164,7 @@ public class GUIClient extends JFrame implements ActionListener {
 		try {
 			
 			SA.connect(this, textAreaOut.getText());
-			gettextAreaRespond().setText(SA.getMyServerString());
+//gettextAreaRespond().setText(SA.getMyServerString());
 			Thread.sleep(4000);
 			SA.connectClose();
 			
@@ -184,20 +181,23 @@ public class GUIClient extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
+//action buttons		
 		if (e.getSource() == buttonSend){
-			
-					this.buttonAction();
+				gettextAreaRespond().setText
+				("Message going out ..\n" + textAreaOut.getText());
+				this.buttonAction();
 			}
 		
 		else if(e.getSource() == textIp){
 			
-					this.buttonAction();
+				this.buttonAction();
 			}
 		
 		else if(e.getSource() == textPort){
-			
-					this.buttonAction();
+				gettextAreaRespond().setText
+				("Message going out ..\n" + textAreaOut.getText());
+				this.buttonAction();
 			}
 	}
 }

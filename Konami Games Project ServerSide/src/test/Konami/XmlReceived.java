@@ -9,6 +9,9 @@ import java.io.*;
 
 
 public class XmlReceived {
+
+//XmlReceived is used to process the XML data and 
+// Parsers the data and prints it on the grid	
 	
 	private String xmlName = "Null";
 	private String xmlAddress = "Null";
@@ -23,6 +26,8 @@ public XmlReceived (String Xml, GUIServer gui){
 	
 	}
 
+//Converters the input element type to a string type
+
 public static String getCharacterDataFromElement(Element e) {
 	Node child = e.getFirstChild();
 		if (child instanceof CharacterData) {
@@ -33,7 +38,9 @@ public static String getCharacterDataFromElement(Element e) {
 }
 
 public void process(){
-	 
+
+//This is the main method of this class, it process XML data	
+	
 	try {
         DocumentBuilderFactory dbf =
             DocumentBuilderFactory.newInstance();

@@ -4,6 +4,8 @@ import java.net.*;
 import java.io.*;
 
 public class SocketLis {
+
+// SocketLis is used to make a socket object for connections	
 	
 	public String readIn = "";
 	public Socket sock;
@@ -15,6 +17,8 @@ public class SocketLis {
 	public SocketLis(){
 		super();
 	}
+	
+// Used for closing the socket
 	
 	public void close() throws IOException{
 		sock.close();
@@ -37,6 +41,8 @@ public class SocketLis {
 	public void setXML(String xML) {
 		XML = xML;
 	}
+
+//main connection method
 	
 	public void listen(GUIServer gs) throws IOException{
 		controlVar = true;
@@ -54,7 +60,8 @@ public class SocketLis {
 					XML += readIn;
 				}
 		}
-		
+	
+//This should write out to the client.		
 		try {
 			Thread.sleep(2000);
 			printS = new PrintWriter(sock.getOutputStream());

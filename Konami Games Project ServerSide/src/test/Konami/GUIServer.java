@@ -50,9 +50,9 @@ public void setServerPortNumber(int serverPortNumber) {
 
 public void go(){
 	
-	//configuring buttons and adding them to JFrame.
+//configuring buttons and adding them to JFrame.
 	
-	//north layout
+//north layout
 	startButton = new JButton("Start Server");
 	stopButton = new JButton("Stop Server");
 	
@@ -64,7 +64,7 @@ public void go(){
 	jpNorth.add(startButton, BorderLayout.WEST);
 	jpNorth.add(stopButton, BorderLayout.EAST);
 	
-	//center layout , making fields for the grid.
+//center layout , making fields for the grid.
 	
 	
 	gridName = new JTextField("Name Field: ");  
@@ -100,7 +100,7 @@ public void go(){
 	
 	this.add(jpCenter, BorderLayout.CENTER);
 	
-	//south layout
+//south layout
 	ipField = new JTextField(20);
 	portField = new JTextField(20);
 	ipFieldLabel = new JLabel("IP Address: ");		
@@ -110,7 +110,7 @@ public void go(){
 	jpSouth.add(ipFieldLabel, BorderLayout.WEST);
 	jpSouth.add(ipField, BorderLayout.WEST);
 	
-	//sets the Field to static so it cannot be modified.
+//sets the Field to static so it cannot be modified.
 	ipField.setEditable(false);
 	jpSouth.add(portFieldLabel, BorderLayout.EAST);
 	jpSouth.add(portField, BorderLayout.EAST);
@@ -123,7 +123,7 @@ public void go(){
 	this.add(jpSouth, BorderLayout.SOUTH);
 	
 	
-	//adding action Listeners.
+//adding action Listeners.
 	
 	startButton.addActionListener(this);
 	stopButton.addActionListener(this);
@@ -131,7 +131,7 @@ public void go(){
 	
 	
 	
-	//define for main JFrame Object.
+//define for main JFrame Object.
 	
 	this.setSize(900, 400);
 	this.setBackground(Color.BLACK);
@@ -149,7 +149,9 @@ public void getIp(){
 	
 	try {
 	    InetAddress addr = InetAddress.getLocalHost();
-	    // Get IP Address
+	    
+// Get IP Address from your local machine
+	    
 	    ipAddr = addr.getAddress(); 
 	} catch (UnknownHostException e) { 
 		System.out.println("Error from getIP()");
@@ -159,7 +161,7 @@ public void getIp(){
 
 public void allAction(){
 	
-	//this.getIp();
+// main action method
 	
 	if (portField.getText().isEmpty()){
 		gridExtra3.setText("Error: please provide a value port number");
@@ -191,7 +193,7 @@ public void allAction(){
 				return;
 			}
 			
-	//Using XML data to update grid
+//Using XML data to update grid
 			
 	XmlReceived xml = new XmlReceived(serverCon.getXML(),this);
 	xml.process();
