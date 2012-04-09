@@ -51,25 +51,20 @@ public class SocketLis {
 		sock = serverConnect.accept();
 		BufferedReader inside = new 
 				BufferedReader(new InputStreamReader(sock.getInputStream()));
+		printS = new PrintWriter(sock.getOutputStream(), true);
 		
 		while (controlVar){
 			readIn = inside.readLine();
-				if(readIn == null){
+				if(readIn.equals("END")){
 					controlVar = false;
+					
 				}else{
 					XML += readIn;
 				}
+		printS.println("Confirmed: Message has been recieved");
 }
-	
 //This should write out to the client.		
-		try {
-			Thread.sleep(2000);
-			printS = new PrintWriter(sock.getOutputStream());
-			printS.println("Confirmed: Message has been recieved");
 			
-		} catch (InterruptedException e) {
-			e.printStackTrace();
 			
-		}
 	}
 }

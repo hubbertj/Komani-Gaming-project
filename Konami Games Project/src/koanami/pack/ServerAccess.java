@@ -9,6 +9,8 @@ public class ServerAccess {
 	public PrintWriter out;
     private String serverIp;
     private int serverPort;
+    String myServerString = "nothing yet";
+    BufferedReader myBR;
     
     
 
@@ -16,8 +18,10 @@ public class ServerAccess {
 		
 		this.serverIp = inputserverIp;	
 		this.serverPort = inputserverPort;
-		//this.gui = GUI;
 		
+}
+	public String getmyServerString (){
+		return myServerString;
 }
 		
 	public void connect(String outPutText) throws IOException{	
@@ -26,32 +30,19 @@ public class ServerAccess {
 		connectSocket = new Socket(serverIp, serverPort);
 		out = new PrintWriter(connectSocket.getOutputStream(), true);
 	    out.println(outPutText);
-	    out.close();
-      
-}    
-    public void receive() throws IOException{  
-    	
-    	//boolean controlVar = true;
-      
-    	BufferedReader myBR = new BufferedReader(new InputStreamReader(connectSocket.getInputStream()));
-		String myServerString = "nothing yet";
+	    out.println("END");
+	    
+//Receiving information from the server.	    
+	    myBR = new BufferedReader(new InputStreamReader(connectSocket.getInputStream()));
 		myServerString = myBR.readLine();
-		while (myServerString != null){
-			myBR.readLine();
-			myServerString = myBR.readLine();
-		}
-		myBR.close();
-		
-		
-		
-	
-		
-}
-
+		     
+} 
+			
 // used for closing the socket	
 	public void connectClose() throws IOException{
 		connectSocket.close();
-		
-		
+		out.close();
+		myBR.close();
+			
 	}
  }

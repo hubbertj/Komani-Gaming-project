@@ -124,9 +124,6 @@ public class GUIClient extends JFrame implements ActionListener, Runnable {
 // Method for common action to this class.
 	public void run() {
 		
-		gettextAreaRespond().setText
-		("Message going out ..\n" + textAreaOut.getText());
-		
 		
 		String ipAddress = textIp.getText();
 		int portNumber = 100;
@@ -165,17 +162,17 @@ public class GUIClient extends JFrame implements ActionListener, Runnable {
 		ServerAccess SA = new ServerAccess(ipAddress, portNumber);
 		try {
 			
+//connects to the server and sends / receives information.			
 			SA.connect(textAreaOut.getText());
-//Issues with reading a input stream from the server.			
-			//SA.receive();
+			textAreaRespond.setText(SA.getmyServerString());
 			SA.connectClose();
-			
 			
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		
 }
 
