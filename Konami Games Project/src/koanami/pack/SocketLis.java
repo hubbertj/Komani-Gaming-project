@@ -3,7 +3,7 @@ package koanami.pack;
 import java.net.*;
 import java.io.*;
 
-public class SocketLis {
+public class SocketLis implements Runnable {
 
 // SocketLis is used to make a socket object for connections	
 	
@@ -13,9 +13,13 @@ public class SocketLis {
 	public String XML = "";
 	public PrintWriter printS;
 	private boolean controlVar;
+	GUIServer gs;
+	BufferedReader inside;
 	
-	public SocketLis(){
+	public SocketLis(GUIServer gs){
+		
 		super();
+		this.gs = gs;
 }
 	
 // Used for closing the socket
@@ -44,27 +48,57 @@ public class SocketLis {
 
 //main connection method
 	
-	public void listen(GUIServer gs) throws IOException{
+	public void run(){
 		controlVar = true;
+		
+		try{
 		serverConnect = new 
 				ServerSocket(gs.getServerPortNumber());
-		sock = serverConnect.accept();
-		BufferedReader inside = new 
-				BufferedReader(new InputStreamReader(sock.getInputStream()));
-		printS = new PrintWriter(sock.getOutputStream(), true);
 		
-		while (controlVar){
-			readIn = inside.readLine();
-				if(readIn.equals("END")){
-					controlVar = false;
-					
-				}else{
-					XML += readIn;
-				}
-		printS.println("Confirmed: Message has been recieved");
-}
-//This should write out to the client.		
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		
+//This should write out to the client and read from it infinite amount of times.	
+		
+		for(;;){
+		try {
+			sock = serverConnect.accept();
+			inside = new 
+					BufferedReader(new InputStreamReader(sock.getInputStream()));
+			printS = new PrintWriter(sock.getOutputStream(), true);
+				while (controlVar){
+					readIn = inside.readLine();
+// I use "END" to mark my EOF
+						if(readIn.equals("END")){
+							controlVar = false;
+							gs.clear();
+							printS.println("Confirmed: Message has been recieved, come again!");
+							printS.println("END");
+							
+						}else{
+							XML += readIn;
+						}
+
+						
+					}
+// Processes the XML				
+				XmlReceived xml = new XmlReceived(XML,gs);
+				xml.process();
+				gs.setmyLayout(xml.getMyStrings(), xml.getMyAdd(), xml.getxmlCommand());
+				
+//Resets all looping variables				
+				controlVar = true;
+				readIn = "";
+				XML = "";
+				
+				
+		
+		}catch(IOException e){
 			
-			
+		}
+		
+		
+		}
 	}
 }

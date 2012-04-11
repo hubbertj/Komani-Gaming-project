@@ -13,12 +13,11 @@ public class XmlReceived {
 //XmlReceived is used to process the XML data and 
 //Parsers the data and prints it on the grid	
 	
-	private String xmlName = "Null";
-	private String xmlAddress = "Null";
 	private String xmlCommand = "Null";
 	private String xml;
 	public 	GUIServer gui;
-	
+	private String [] myStrings = new String[6];
+	private String [] myAdd		= new String[6];
 	
 public XmlReceived (String Xml, GUIServer gui){
 	this.xml = Xml;
@@ -36,6 +35,7 @@ public static String getCharacterDataFromElement(Element e) {
 		    }
 		    return "Please check the XML.";
 }
+
 
 public void process(){
 
@@ -63,59 +63,69 @@ public void process(){
         				" process this command " + clientCommand); 
         
         this.xmlCommand = clientCommand;
-        
+    
         NodeList nodes = doc.getElementsByTagName("Row");
+        
+        String nameObj = "Name";
+        String addressObj = "Address";
        
 // loops thought the XML Message for values.
         for (int x = 0; x < nodes.getLength(); x++ ){
+        			
         
-        
-			        Element element = (Element) nodes.item(x); //what I need to loop
+        	Element element = (Element) nodes.item(x);
 			        
-			        NodeList name = element.getElementsByTagName("Description");
-			        Element line = (Element) name.item(0); 
+			NodeList name = element.getElementsByTagName("Description");
+			Element line = (Element) name.item(0); 
 			        
-			        String conVar = getCharacterDataFromElement(line);
-			        conVar = conVar.replace("\"", "");
-			        String nameObj = "Name";
-			        String addressObj = "Address";
+			String conVar = getCharacterDataFromElement(line);
+			conVar = conVar.replace("\"", "");
 			        
-			        
-
-			        
-					NodeList addr = element.getElementsByTagName("Value");
-			        Element lineaddress = (Element) addr.item(0);
+			NodeList addr = element.getElementsByTagName("Value");
+			Element lineaddress = (Element) addr.item(0);
 			   
 			        	if (conVar.equals(addressObj)){
 			                String xmlAddress = getCharacterDataFromElement(lineaddress);
-			                xmlAddress = xmlAddress.replace("\"", "");
-			                this.xmlAddress = xmlAddress;  
+			                myAdd[x] = xmlAddress.replace("\"", "");
+			                
 			        	}
+          	
+			        	
 			        	if (conVar.equals(nameObj)){
 			                String xmlName = getCharacterDataFromElement(lineaddress);
-			                xmlName = xmlName.replace("\"", "");
-			                this.xmlName = xmlName;	
+			                myStrings[x] = xmlName.replace("\"", "");	
 			        	}
                
         	}
+        
             
     }catch(Exception e){
+    	e.printStackTrace();
     	
-    System.out.println ("issue in the XML processing");
     }
 }
 
-	public String updateNameGrid(){
-		return this.xmlName;
-				
-}
-	public String updateAddressGrid(){
-		return this.xmlAddress;
-		
-}
-	public String updateCommandGrid(){
+	public String getxmlCommand(){
 		return this.xmlCommand;		
 		
 }
+
+	public String[] getMyStrings() {
+		return myStrings;
+}
+
+	public void setMyStrings(String[] myStrings) {
+		this.myStrings = myStrings;
+}
+
+	public String[] getMyAdd() {
+		return myAdd;
+}
+
+	public void setMyAdd(String[] myAdd) {
+		this.myAdd = myAdd;
+}
+
+	
 
 }

@@ -28,6 +28,8 @@ public class GUIClient extends JFrame implements ActionListener, Runnable {
 	private JPanel		panelNorth;
 	private JPanel		panelIntern;
 	
+	public ServerAccess SA;
+	
 	
 	
 	public GUIClient (String windowName) {
@@ -159,19 +161,19 @@ public class GUIClient extends JFrame implements ActionListener, Runnable {
 	
 			
 		
-		ServerAccess SA = new ServerAccess(ipAddress, portNumber);
+//connects to the server and sends / receives information.		
 		try {
-			
-//connects to the server and sends / receives information.			
-			SA.connect(textAreaOut.getText());
-			textAreaRespond.setText(SA.getmyServerString());
-			SA.connectClose();
+			SA = new ServerAccess(ipAddress, portNumber, this);
+			SA.out(textAreaOut.getText());			
+			textAreaRespond.append("\n"+SA.getmyServerString());
 			
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		Thread th = new Thread(SA);
+		th.start();
 		
 		
 }
@@ -181,10 +183,11 @@ public class GUIClient extends JFrame implements ActionListener, Runnable {
 		
 //action buttons		
 		if (e.getSource() == buttonSend){
-			
-			Thread threadOne  = new Thread(this);
-			threadOne.setName("ClientThread");
-			threadOne.start();
+					
+				Thread threadOne  = new Thread(this);
+				threadOne.setName("ClientThread");
+				threadOne.start();
+				
+				}
 			}
-	}
 }
