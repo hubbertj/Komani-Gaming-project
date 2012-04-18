@@ -1,64 +1,6 @@
-This is a project is a test which Konami Games has provided. It a little hard but can be compelted by a mid-level Java Programmer. This program is nothing more then a client/Server XML processers. If you feel this could be pretty useful in your work/project feel free to grab it. The way the program works is you start up the Server Application and choose a port, pick a port above 1000 but under 7000 so, 1000 - 7000. Start the client program up, apply your xml in the text area provided, enter your port/ ip information (if you dont know it go get it). Hit the send message button, once you hit it the XML will be sent via socket /datastream to the server program. The server program will process the XML, either dispaly the output into its gird display or simple output it to the console. Thank you for read/looking at this project if you would like to hire me or chat feel free to message me. Have a good day gitHub.
+This is a project is a test which Konami Games has provided. It a little hard but can be compelted by a mid-level Java Programmer. This program is nothing more then a client/Server XML processers. If you feel this could be pretty useful in your work/project feel free to grab it. The way the program works is you start up the Server Application and choose a port, pick a port above 1000 but under 7000 so, 1000 - 7000. Start the client program up, apply your xml in the text area provided, enter your port/ ip information (if you dont know it go get it). Hit the send message button, once you hit it the XML will be sent via socket /datastream to the server program. The server program will process the XML, either display the output into its gird display or simple output it to the console. Thank you for read/looking at this project if you would like to hire me or chat feel free to message me. Have a good day gitHub.
 
-1: The Java Language.
-
-2: The Java API's swing GUI/Tables Socket Communication.
-
-3: Parsing and XML file.
-
-Task Description:
-
-Create two Java Swing GUI programs:
-
-1. Socket Server Moniter:
-
-	a. Components:
-		i.	Input fields - TCPIP Address, Port
-
-		ii.	Socket Listener
-
-		iii.	Grid (display Command, Receive Date, Process Date)
-
-		iv. 	Buttons - Start Server, Stop Server.
-
-	b. Function
-
-		i. 	Open Socket and Listen for incoming data.
-
-		ii. 	Catch data, determine if it is XML.
-
-			1. 	If it is XML, parse out the "Command" field and display it in the grid along
-				with a receive data. Pass to a work queue that "processes" the command.
-				The Process can simply be outputting the command and data/time to the system.
-			
-			2.	If not XML, place "Unknown Command" in the grid.
-
-			3.	Send response to originating socket.
-
-
-
-2. Client Emulator:
-	
-	a. Components:
-
-		i. 	Input fields - TCP/IP Address, port
-
-		ii. 	Text Area in a scroll Pane for outgoing message.
-
-		iii. 	Text Area in a scroll pane for respose message.
-
-		iv. 	Buttons - Send Message.
-
-
-	b. Functionality:
-
-		i. Type of Paste and XML message in the text area.
-
-		ii. When you press "send Message", open socket based on the TCP/IP address
-			port entered and send the message.
-
-		iii. Display the response sent by server in the "Response" text area.
-
+Enjoy!
 
 
 
